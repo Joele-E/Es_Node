@@ -2,4 +2,4 @@ const es = () => {
   console.log("CIAO");
 };
 
-export default es;
+module.exports = { es };
