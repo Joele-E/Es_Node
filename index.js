@@ -1,10 +1,3 @@
-var figlet = require("figlet");
+import { writeFile } from "node:fs";
 
-figlet("CIAO", (err, data) => {
-  if (err) {
-    console.log("Something went wrong...");
-    console.dir(err);
-    return;
-  }
-  console.log(data);
-});
+writeFile("message.txt", "CIAO", "utf8", (err) => console.error(err));
