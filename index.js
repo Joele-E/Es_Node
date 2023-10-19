@@ -12,8 +12,20 @@ function luckyDraw(player) {
   });
 }
 
-let player = "Joele";
+async function getResults(person) {
+  let result;
+  try {
+    result = await luckyDraw(person);
+  } catch (error) {
+    result = error;
+  }
+  console.log("=".repeat(50));
+  console.log(result);
+  console.log("=".repeat(50));
+}
 
-luckyDraw(player)
-  .then((r) => console.log(r))
-  .catch((err) => console.error(err));
+let players = ["Tina", "Jorge", "Julien"];
+
+players.forEach((el) => {
+  getResults(el);
+});
