@@ -4,6 +4,7 @@ import "dotenv/config";
 const app = express();
 const port = process.env.PORT;
 app.use(morgan("dev"));
+app.use(express.json());
 let planets = [
     {
         id: 1,
@@ -17,14 +18,14 @@ let planets = [
 app.get("/", (req, res) => {
     res.send("CIAO");
 });
-app.get("/api/planets", (req, res) => {
-    res.status(200).json(planets);
+/* app.get("/api/planets", (req, res) => {
+  res.status(200).json(planets);
 });
 app.get("/api/planets/:id", (req, res) => {
-    const { id } = req.params;
-    const planet = planets.find((p) => p.id === Number(id));
-    res.status(200).json(planet);
-});
+  const { id } = req.params;
+  const planet = planets.find((p) => p.id === Number(id));
+  res.status(200).json(planet);
+}); */
 app.listen(port, () => {
     console.log(`Server partito sulla porta ${port}`);
 });
