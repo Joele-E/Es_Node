@@ -1,3 +1,19 @@
-import { writeFile } from "node:fs";
+function luckyDraw(player) {
+  return new Promise((resolve, reject) => {
+    const win = Boolean(Math.round(Math.random()));
 
-writeFile("message.txt", "CIAO", "utf8", (err) => console.error(err));
+    process.nextTick(() => {
+      if (win) {
+        resolve(`${player} won a prize in the draw!`);
+      } else {
+        reject(new Error(`${player} lost the draw.`));
+      }
+    });
+  });
+}
+
+let player = "Joele";
+
+luckyDraw(player)
+  .then((r) => console.log(r))
+  .catch((err) => console.error(err));
