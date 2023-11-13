@@ -9,7 +9,20 @@ import {
   create,
   updateById,
   deleteById,
-} from "./controllers/planets.ts";
+  createImage,
+} from "./controllers/planets";
+
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage });
 
 const app = express();
 const port = process.env.PORT;
@@ -33,6 +46,7 @@ app.get("/api/planets/:id", getOneById);
 app.post("/api/planets", create);
 
 app.put("/api/planets/:id", updateById);
+app.post("/api/planets/:id/image", upload.single("image"), createImage);
 
 app.delete("/api/planets/:id", deleteById);
 

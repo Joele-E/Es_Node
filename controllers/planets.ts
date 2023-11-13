@@ -3,6 +3,7 @@ import { type } from "os";
 import Joi from "joi";
 import pgPromise from "pg-promise";
 import "dotenv/config";
+
 const db = pgPromise()(process.env.DB_KEY || "");
 
 const setupDb = async () => {
@@ -10,7 +11,10 @@ const setupDb = async () => {
     DROP TABLE IF EXISTS planets;
     CREATE TABLE planets (
         id SERIAL NOT NULL PRIMARY KEY,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        image TEXT
+
+
     );
     `);
 
@@ -67,4 +71,19 @@ const deleteById = async (req: Request, res: Response) => {
     .json({ msg: `The planet with id ${id} was deleted succescfully` });
 };
 
-export { getAll, getOneById, create, updateById, deleteById };
+const createImage = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const fileName = req.file?.path;
+
+  if (fileName) {
+    db.none(`UPDATE planets SET image=$2 WHERE id=$1`, [
+      Number(id),
+      String(fileName),
+    ]);
+    res.status(201).json({ message: "Planet image uploaded successfully" });
+  } else {
+    res.status(400).json({ message: "Planet image failed to upload" });
+  }
+};
+
+export { getAll, getOneById, create, updateById, deleteById, createImage };
