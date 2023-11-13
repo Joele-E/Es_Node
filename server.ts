@@ -3,7 +3,8 @@ import morgan from "morgan";
 import "dotenv/config";
 import Joi from "joi";
 
-import { logIn, signUp } from "./controllers/users";
+import { logIn, signUp, logOUt } from "./controllers/users";
+import authorize from "./authorize";
 
 import multer from "multer";
 
@@ -51,6 +52,7 @@ app.post("/api/users/login", (req, res) => {
 });
 app.post("/api/users/login", logIn);
 app.post("/api/users/signup", signUp);
+app.get("/api/users/logout", authorize, signUp);
 
 app.listen(port, () => {
   console.log(`Server partito sulla porta ${port}`);
