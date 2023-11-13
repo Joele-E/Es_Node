@@ -3,14 +3,7 @@ import morgan from "morgan";
 import "dotenv/config";
 import Joi from "joi";
 
-import {
-  getAll,
-  getOneById,
-  create,
-  updateById,
-  deleteById,
-  createImage,
-} from "./controllers/planets";
+import { logIn, signUp } from "./controllers/users";
 
 import multer from "multer";
 
@@ -31,14 +24,12 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-const planetSchema = Joi.object({
+/* const planetSchema = Joi.object({
   id: Joi.number().integer().required(),
   name: Joi.string().required(),
 });
 
-app.get("/", (req, res) => {
-  res.send("CIAO");
-});
+
 
 app.get("/api/planets", getAll);
 app.get("/api/planets/:id", getOneById);
@@ -49,6 +40,17 @@ app.put("/api/planets/:id", updateById);
 app.post("/api/planets/:id/image", upload.single("image"), createImage);
 
 app.delete("/api/planets/:id", deleteById);
+ */
+
+app.get("/", (req, res) => {
+  res.send("CIAO");
+});
+
+app.post("/api/users/login", (req, res) => {
+  res.send("CIAO");
+});
+app.post("/api/users/login", logIn);
+app.post("/api/users/signup", signUp);
 
 app.listen(port, () => {
   console.log(`Server partito sulla porta ${port}`);
