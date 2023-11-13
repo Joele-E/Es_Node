@@ -3,7 +3,7 @@ import { type } from "os";
 import Joi from "joi";
 import pgPromise from "pg-promise";
 import "dotenv/config";
-const db = pgPromise()(process.env.DB_KEY);
+const db = pgPromise()(process.env.DB_KEY || "");
 
 const setupDb = async () => {
   await db.none(`
