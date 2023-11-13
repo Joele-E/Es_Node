@@ -5,8 +5,8 @@ CREATE TABLE Books (
     genre TEXT NOT NULL,
     published_year YEAR NOT NULL,
     isbn TEXT NOT NULL,
-    price TEXT NOT NULL
-    rating INTEGER,
+    price MONEY NOT NULL
+    rating DECIMAL(4,2),
     stock_count INTEGER NOT NULL
   
 )
