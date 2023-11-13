@@ -3,6 +3,14 @@ import morgan from "morgan";
 import "dotenv/config";
 import Joi from "joi";
 
+import {
+  getAll,
+  getOneById,
+  create,
+  updateById,
+  deleteById,
+} from "./controllers/planets.ts";
+
 const app = express();
 const port = process.env.PORT;
 
@@ -37,49 +45,14 @@ app.get("/", (req, res) => {
   res.send("CIAO");
 });
 
-app.get("/api/planets", (req, res) => {
-  res.status(200).json(planets);
-});
-app.get("/api/planets/:id", (req, res) => {
-  const { id } = req.params;
-  const planet = planets.find((p) => p.id === Number(id));
-  res.status(200).json(planet);
-});
+app.get("/api/planets", getAll);
+app.get("/api/planets/:id", getOneById);
 
-app.post("/api/planets", (req, res) => {
-  const { id, name } = req.body;
-  const newPlanet = { id, name };
+app.post("/api/planets", create);
 
-  const validatedNewPlanet = planetSchema.validate(newPlanet);
+app.put("/api/planets/:id", updateById);
 
-  if (validatedNewPlanet.error) {
-    return res.status(400).json({ msg: "There was an error" });
-  } else {
-    planets = [...planets, newPlanet];
-    res.status(201).json({ msg: "The planet was added succescfully" });
-  }
-});
-
-app.put("/api/planets/:id", (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  planets = planets.map((p) => (p.id === Number(id) ? { ...p, name } : p));
-
-  console.log(planets);
-
-  res
-    .status(200)
-    .json({ msg: `The planet with id ${id} was modified succescfully` });
-});
-
-app.delete("/api/planets/:id", (req, res) => {
-  const { id } = req.params;
-  planets = planets.filter((p) => p.id !== Number(id));
-
-  res
-    .status(200)
-    .json({ msg: `The planet with id ${id} was deleted succescfully` });
-});
+app.delete("/api/planets/:id", deleteById);
 
 app.listen(port, () => {
   console.log(`Server partito sulla porta ${port}`);
