@@ -1,4 +1,6 @@
-ALTER TABLE Books 
-ADD publisher TEXT,
-ADD number_of_pages INTEGER;
-
+INSERT INTO Books
+VALUES 
+('A Journey to the Center','Jules Verne','Adventure','1864','1234567890123','$12.99','4.5','10','','')
+()
+()
+()
