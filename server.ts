@@ -72,6 +72,15 @@ app.put("/api/planets/:id", (req, res) => {
     .json({ msg: `The planet with id ${id} was modified succescfully` });
 });
 
+app.delete("/api/planets/:id", (req, res) => {
+  const { id } = req.params;
+  planets = planets.filter((p) => p.id !== Number(id));
+
+  res
+    .status(200)
+    .json({ msg: `The planet with id ${id} was deleted succescfully` });
+});
+
 app.listen(port, () => {
   console.log(`Server partito sulla porta ${port}`);
 });
