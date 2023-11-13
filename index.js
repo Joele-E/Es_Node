@@ -12,8 +12,10 @@ function luckyDraw(player) {
   });
 }
 
-let player = "Joele";
+let players = ["Joe", "Caroline", "Sabrina"];
 
-luckyDraw(player)
-  .then((r) => console.log(r))
-  .catch((err) => console.error(err));
+players.forEach((el) => {
+  luckyDraw(el)
+    .then((r) => console.log(r))
+    .catch((err) => console.error(err));
+});
